@@ -31,7 +31,7 @@ all:: lang
 modall.win: modall_part.cppm modall_ifpart.cppm modall_if.cppm modall_impl.cpp modall_test.cpp
 	@echo ""
 	@echo "=== COMPILE & LINK:"
-	../clm.py $(CXXFLAGSWINL) modall_part.cppm modall_ifpart.cppm modall_if.cppm modall_impl.cpp modall_test.cpp $(LDFLAGSWIN) /Femodall.exe
+	../clmod.py $(CXXFLAGSWINL) modall_part.cppm modall_ifpart.cppm modall_if.cppm modall_impl.cpp modall_test.cpp $(LDFLAGSWIN) /Femodall.exe
 	#rm -f modall*obj modall*ifc
 	@echo "- OK:  $*.exe done"
 
