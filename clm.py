@@ -4,6 +4,8 @@
 # - supporting arbitrary file suffixes
 # - without the need to use undocumented options
 # - passing all files one one command line
+# Special handling:
+#   Pass "-debug" to have verbose output 
 
 import sys
 import os
@@ -15,7 +17,7 @@ debug = False
 def getModulesOpt(filename):
   #print("\n=== getModulesOpt() for", filename)
   if not os.path.isfile(filename):
-      print ("ERROR: '" + filename + "' doesn't exist")
+      print ("*** ERROR: '" + filename + "' doesn't exist")
       sys.exit(1)
   inGlobalModuleFragment = False
   with open(filename, encoding='latin1') as f:
@@ -77,7 +79,7 @@ def getModulesOpt(filename):
           print("  ", filename, "is implementation unit of module '" + m.group(1) + "'")
         return ""
   # could not decide:
-  print("ERROR: could not categorize", filename)
+  print("*** ERROR: could not categorize", filename)
   sys.exit(1)
 
 
@@ -113,27 +115,32 @@ for opt in sys.argv[1:]:
 # - compile each file accordingly
 print("COMPILE:")
 objfiles = []
-for f in files:
-  print("\n*** COMPILE: '" + f + "'")
-  m = re.search("^(.*)\.([^.]*)$", f)
+for filename in files:
+  print("\n*** COMPILE: '" + filename + "'")
+  m = re.search("^(.*)\.([^.]*)$", filename)
   if not m:
-    print("ERROR: file", filename, "has no suffix")
+    print("*** ERROR: file", filename, "has no suffix")
     sys.exit(1)
-  fileopt = getModulesOpt(f)
+  fileopt = getModulesOpt(filename)
   # compile code:
-  print("    cl ", " ".join(flags), "/TP", "/c", fileopt, f)
+  print("*** cl ", " ".join(flags), "/TP", "/c", fileopt, filename)
   if not fileopt or fileopt == "":
-    p = subprocess.Popen(["cl"] + flags + ["/TP", "/c", f])
+    p = subprocess.run(["cl"] + flags + ["/TP", "/c", filename])
   else:
-    p = subprocess.Popen(["cl"] + flags + ["/TP", "/c", fileopt, f])
-  p.wait()
+    p = subprocess.run(["cl"] + flags + ["/TP", "/c", fileopt, filename])
+  #p.wait()
+  if p.returncode != 0:
+    print("*** ERROR: compiling", filename, "failed")
+    sys.exit(1)
   objfiles.append(m.group(1) + ".obj")
 
 # link generated object files
 if not compileOnly:
   print("\n*** LINK:")
-  print("    cl ", " ".join(flags), " ".join(objfiles))
-  p = subprocess.Popen(["cl"] + flags + objfiles)
-  p.wait()
+  print("*** cl ", " ".join(flags), " ".join(objfiles))
+  p = subprocess.run(["cl"] + flags + objfiles)
+  if p.returncode != 0:
+    print("*** ERROR: linking failed")
+    sys.exit(1)
 
 
