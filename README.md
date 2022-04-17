@@ -41,39 +41,54 @@ This does not mean that different file suffixes may not make sense to deal
 with C++ module files. But it helps until we see an established portable
 policy for this.
 
-For example,
-given for a module Mod 3, we have:
- mod3if.cppm     : The module interface unit
- mod3impl.cpp    : An implementation unit
- mod3test.cpp    : A traditionaal translation unit
- mod3ifpart.cppm : An interface partition unit
-and to test this we have:
- mod3part.cppm   : An internal partition
+## For example
+
+Given for a module ModAll (see the subdirectory testall),
+we have:
+- **mod3if.cppm**     : The module interface unit
+- **mod3ifpart.cppm** : An interface partition unit
+- **mod3part.cppm**   : An internal partition
+- **mod3impl.cpp**    : An implementation unit
+
+To test this we have:
+- **mod3test.cpp**    : A traditional translation unit
 
 Calling:
- clm.py /std:c++latest mod3part.cppm mod3ifpart.cppm mod3if.cppm mod3impl.cpp mod3test.cpp /Femod3.exe
+
+> clmod.py /std:c++latest mod3part.cppm mod3ifpart.cppm mod3if.cppm mod3impl.cpp mod3test.cpp /Femod3.exe
 
 will automatically do the right thing:
- cl /std:c++latest /Femod3.exe /TP /c /internalPartition mod3part.cppm
- cl /std:c++latest /Femod3.exe /TP /c /interface mod3ifpart.cppm
- cl /std:c++latest /Femod3.exe /TP /c /interface mod3if.cppm
- cl /std:c++latest /Femod3.exe /TP /c mod3impl.cpp
- cl /std:c++latest /Femod3.exe /TP /c mod3test.cpp
- cl /std:c++latest /Femod3.exe mod3part.obj mod3ifpart.obj mod3if.obj mod3impl.obj mod3test.obj
+
+> cl /std:c++latest /Femod3.exe /TP /c /internalPartition mod3part.cppm
+> cl /std:c++latest /Femod3.exe /TP /c /interface mod3ifpart.cppm
+> cl /std:c++latest /Femod3.exe /TP /c /interface mod3if.cppm
+> cl /std:c++latest /Femod3.exe /TP /c mod3impl.cpp
+> cl /std:c++latest /Femod3.exe /TP /c mod3test.cpp
+> cl /std:c++latest /Femod3.exe mod3part.obj mod3ifpart.obj mod3if.obj mod3impl.obj mod3test.obj
 
 Note tat the order of the files matters because files that import modules need
 the pre-compiled module code (which is compiler-specific).
 Yes, circular imports are not possible.
 
-Passing /Femod3.exe to the compile command is not necessary but also doesn't
+Passing `/Femod3.exe` to the compile command is not necessary but also doesn't
 hurt.
 In general, the script passes all options to both the compile and the link command.
-Except a "/c" (compile only), which is handled by the script.
+Except a `/c` (compile only), which is handled by the script to not start the linker.
 
 Probably not all options work correctly, but for a first test it works fine.
-I would expect that this script being integrated in Visual C++ they do things right.
+I would hope that the support this script provides is soon directly provided by Visual C++.
 
-For more details see the book
- C++20 - The Complete Guide by Nicolai M. Josuttis
+## More
+
+For more details how to implement and deal with C++20 modules
+see
+
+>  C++20 - The Complete Guide by Nicolai M. Josuttis
+>  http://cppstd20.com
+
+## License
+
 The code is licensed under a Creative Commons Attribution 4.0 International License.
+http://creativecommons.org/licenses/by/4.0/
+
 
