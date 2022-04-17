@@ -66,7 +66,7 @@ will automatically do the right thing:
     cl /std:c++latest /Femodall.exe /TP /c modall_test.cpp
     cl /std:c++latest /Femodall.exe modall_part.obj modall_ifpart.obj modall_if.obj modall_impl.obj modall_test.obj
 
-Note tat the order of the files matters because files that import modules need
+Note tat the order of the files matters, because files that import modules need
 the pre-compiled module code (which is compiler-specific).
 Yes, circular imports are not possible.
 
@@ -77,6 +77,14 @@ Except a `/c` (compile only), which is handled by the script to not start the li
 
 Probably not all options work correctly, but for a first test it works fine.
 I would hope that the support this script provides is soon directly provided by Visual C++.
+
+## Tests
+
+I have provided the folloiwng subdirectories to test the script:
+- **testsimple**: a simple module example using only a module interface 
+- **testall**: a full module example using all module units with extension `.cppm`
+- **testallixx**: a full module example using Visual C++ conventions (`.ixx` for interface files)
+- **testallcpp**: a full module example using `.cpp`for all files (as gcc supports)
 
 ## More
 

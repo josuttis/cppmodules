@@ -42,7 +42,7 @@ modall.win: modall_part.cpp modall_ifpart.ixx modall_if.ixx modall_impl.cpp moda
 modall.gcc: modall_part.cpp modall_ifpart.ixx modall_if.ixx modall_impl.cpp modall_test.cpp
 	@echo ""
 	@echo "=== COMPILE & LINK:"
-	$(CXX20) $(CXXFLAGS20) modall_part.cpp -xc++ modall_ifpart.cppm -xc++ modall_if.cppm modall_impl.cpp modall_test.cpp $(LDFLAGS20) -o modall.exe
+	$(CXX20) $(CXXFLAGS20) modall_part.cpp -xc++ modall_ifpart.ixx -xc++ modall_if.ixx modall_impl.cpp modall_test.cpp $(LDFLAGS20) -o modall.exe
 	#rm -rf *.o gcm.cache
 	@echo "- OK:  modall.exe done"
 
