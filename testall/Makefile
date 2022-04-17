@@ -28,17 +28,17 @@ all:: lang
 	@echo "=== $*.obj done"
 	@echo ""
 
-mod3.win: mod3part.cppm mod3ifpart.cppm mod3if.cppm mod3impl.cpp mod3test.cpp
+modall.win: modall_part.cppm modall_ifpart.cppm modall_if.cppm modall_impl.cpp modall_test.cpp
 	@echo ""
 	@echo "=== COMPILE & LINK:"
-	clm.py $(CXXFLAGSWINL) mod3part.cppm mod3ifpart.cppm mod3if.cppm mod3impl.cpp mod3test.cpp $(LDFLAGSWIN) /Femod3.exe
-	#rm -f mod3*obj mod3*ifc mod3*cpp*
+	../clm.py -debug $(CXXFLAGSWINL) modall_part.cppm modall_ifpart.cppm modall_if.cppm modall_impl.cpp modall_test.cpp $(LDFLAGSWIN) /Femodall.exe
+	#rm -f modall*obj modall*ifc
 	@echo "- OK:  $*.exe done"
 
-mod3.gcc: mod3part.cppm mod3ifpart.cppm mod3if.cppm mod3impl.cpp mod3test.cpp
+modall.gcc: modall_part.cppm modall_ifpart.cppm modall_if.cppm modall_impl.cpp modall_test.cpp
 	@echo ""
 	@echo "=== COMPILE & LINK:"
-	$(CXX20) clm.py $(CXXFLAGS20) -xc++ mod3part.cppm -xc++ mod3ifpart.cppm -xc++ mod3if.cppm mod3impl.cpp mod3test.cpp $(LDFLAGS20) -o mod3.exe
-	#rm -f mod3*obj mod3*ifc mod3*cpp*
+	$(CXX20) $(CXXFLAGS20) -xc++ modall_part.cppm -xc++ modall_ifpart.cppm -xc++ modall_if.cppm modall_impl.cpp modall_test.cpp $(LDFLAGS20) -o modall.exe
+	#rm -f modall*o gcm-cache/modall*gcm
 	@echo "- OK:  $*.exe done"
 

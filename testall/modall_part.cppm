@@ -13,17 +13,22 @@
 module;                // start module unit with global module fragment
 
 #include <iostream>
+#include <cassert>
 
-// module implementation unit:
-module Mod3;
+// internal partition:
+module ModAll:Name;
 
-import :Name;          // import internal partition to have type Name
-
-namespace Mod3 {
-
-  std::ostream& operator<< (std::ostream& strm, const Person& p)
-  {
-    return strm << '[' << p.name << ": " << p.value << ']';
+class Name {
+ private:
+  std::string name;
+ public:
+  Name(std::string n)
+   : name{std::move(n)} {
+    assert(!name.empty());   // require non-empty name
   }
-}
+
+  friend std::ostream& operator<< (std::ostream& strm, const Name& n) {
+    return strm << n.name;
+  }
+};
 

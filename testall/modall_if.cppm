@@ -10,12 +10,27 @@
 //  http://creativecommons.org/licenses/by/4.0/
 //********************************************************
 
+module;                // start module unit with global module fragment
+
 #include <iostream>
 
-import Mod3;
+// THE module interface
+export module ModAll;
 
-int main()
-{
-  Mod3::Person p1{"Kim", 42};
-  std::cout << "p1: " << p1 << '\n';
+// import and export interface partition Person:
+export import :Person;
+
+// export a string and a generic function:
+export namespace ModAll {
+
+  auto modName() {
+    return "ModAll";
+  }
+
+  void printColl(auto&& coll) {
+    for (const auto& elem : coll) {
+      std::cout << elem << ' ';
+    }
+    std::cout << '\n';
+  }
 }

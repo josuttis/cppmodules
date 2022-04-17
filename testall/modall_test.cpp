@@ -10,25 +10,13 @@
 //  http://creativecommons.org/licenses/by/4.0/
 //********************************************************
 
-module;                // start module unit with global module fragment
-
 #include <iostream>
-#include <cassert>
 
-// internal partition:
-module Mod3:Name;
+import ModAll;
 
-class Name {
- private:
-  std::string name;
- public:
-  Name(std::string n)
-   : name{std::move(n)} {
-    assert(!name.empty());   // require non-empty name
-  }
-
-  friend std::ostream& operator<< (std::ostream& strm, const Name& n) {
-    return strm << n.name;
-  }
-};
-
+int main()
+{
+  std::cout << "test " << ModAll::modName() << '\n';
+  ModAll::Person p1{"Kim", 42};
+  std::cout << "p1: " << p1 << '\n';
+}

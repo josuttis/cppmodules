@@ -14,22 +14,16 @@ module;                // start module unit with global module fragment
 
 #include <iostream>
 
-// Moule interface partition:
-export module Mod3:Person;
+// module implementation unit:
+module ModAll;
 
 import :Name;          // import internal partition to have type Name
 
-// export a string and a generic function:
-export namespace Mod3 {
+namespace ModAll {
 
-  class Person {
-   private:
-    Name name;
-    int value = 0;
-   public:
-    Person(std::string n, int v = 0)
-     : name{std::move(n)}, value{v} {
-    }
-    friend std::ostream& operator<< (std::ostream&, const Person&);
-  };
+  std::ostream& operator<< (std::ostream& strm, const Person& p)
+  {
+    return strm << '[' << p.name << ": " << p.value << ']';
+  }
 }
+
