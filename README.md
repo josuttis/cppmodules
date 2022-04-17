@@ -32,7 +32,7 @@ special suffixes nor special options but also do not know what to do with the
 To circumvent this restriction and bring the idea of portable module files
 to life, I have implemented a pythen script that gives Visual C++ the flexibility it should have.
 The attached script
-> clmod.py
+ **clmod.py**
 is a python script that allows to
 - use arbitrary file name suffixes for module files
 - allows to pass all files with one command line
