@@ -92,11 +92,6 @@ I have provided the following subdirectories to test the script:
 - **testallixx**: a full module example using Visual C++ conventions (`.ixx` for interface files)
 - **testallcpp**: a full module example using `.cpp` for all files (as gcc supports)
 
-## Feedback
-
-I am happy about any constructive feedback.
-Please use the feedback address of my C++20 book: http://cppstd20.com/feedback
-
 ## More
 
 For more details how to implement and deal with C++20 modules
@@ -105,6 +100,11 @@ see
 >  C++20 - The Complete Guide by Nicolai M. Josuttis
 >
 >  http://cppstd20.com
+
+## Feedback
+
+I am happy about any constructive feedback.
+Please use the feedback address of my C++20 book: http://cppstd20.com/feedback
 
 ## License
 
