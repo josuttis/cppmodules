@@ -11,12 +11,12 @@ The reason is that the different compiler vendors could not agree on a common wa
 While gcc/g++ does not require any special suffix, other compiler do it (with different recommended suffixes).
 
 In fact, Visual C++ does
-- require special suffixes for specific module files and
-  special /options to be set when compiling some module files
+- require **special suffixes** for specific module files and/or
+  **special options** to be set when compiling some module files
 - not allow to request a compilation of different module files with ONE command
 - does neither document the requested file suffixes nor the necessary command-line options
 
-Here is what Visual C++ needs in detila for module files:
+Here is what Visual C++ needs in detail for module files:
 - **Interface files** (module interface or interface partition)
   need suffix `.ixx` or the option `/interface`
 - **Internal partitions** need the option `/internalPartition`
@@ -78,13 +78,20 @@ Except a `/c` (compile only), which is handled by the script to not start the li
 Probably not all options work correctly, but for a first test it works fine.
 I would hope that the support this script provides is soon directly provided by Visual C++.
 
+I have opened bug reports for that:
+- https://developercommunity.visualstudio.com/t/Using-modules-I-cant-compile-all-C-fi/10015356
+- https://developercommunity.visualstudio.com/t/Csource-files-should-be-able-to-have-t/10013381
+
+Feel free to vote them up.
+
+
 ## Tests
 
-I have provided the folloiwng subdirectories to test the script:
+I have provided the following subdirectories to test the script:
 - **testsimple**: a simple module example using only a module interface 
-- **testall**: a full module example using all module units with extension `.cppm`
+- **testall**: a full module example using for all module units the extension `.cppm`
 - **testallixx**: a full module example using Visual C++ conventions (`.ixx` for interface files)
-- **testallcpp**: a full module example using `.cpp`for all files (as gcc supports)
+- **testallcpp**: a full module example using `.cpp` for all files (as gcc supports)
 
 ## More
 
