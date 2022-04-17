@@ -55,16 +55,16 @@ To test this we have:
 
 Calling:
 
-> clmod.py /std:c++latest modall_part.cppm modall_ifpart.cppm modall_if.cppm modall_impl.cpp modall_test.cpp /Femodall.exe
+>    clmod.py /std:c++latest modall_part.cppm modall_ifpart.cppm modall_if.cppm modall_impl.cpp modall_test.cpp /Femodall.exe
 
 will automatically do the right thing:
 
-> cl /std:c++latest /Femodall.exe /TP /c /internalPartition modall_part.cppm
-> cl /std:c++latest /Femodall.exe /TP /c /interface modall_ifpart.cppm
-> cl /std:c++latest /Femodall.exe /TP /c /interface modall_if.cppm
-> cl /std:c++latest /Femodall.exe /TP /c modall_impl.cpp
-> cl /std:c++latest /Femodall.exe /TP /c modall_test.cpp
-> cl /std:c++latest /Femodall.exe modall_part.obj modall_ifpart.obj modall_if.obj modall_impl.obj modall_test.obj
+>    cl /std:c++latest /Femodall.exe /TP /c /internalPartition modall_part.cppm
+>    cl /std:c++latest /Femodall.exe /TP /c /interface modall_ifpart.cppm
+>    cl /std:c++latest /Femodall.exe /TP /c /interface modall_if.cppm
+>    cl /std:c++latest /Femodall.exe /TP /c modall_impl.cpp
+>    cl /std:c++latest /Femodall.exe /TP /c modall_test.cpp
+>    cl /std:c++latest /Femodall.exe modall_part.obj modall_ifpart.obj modall_if.obj modall_impl.obj modall_test.obj
 
 Note tat the order of the files matters because files that import modules need
 the pre-compiled module code (which is compiler-specific).
@@ -84,11 +84,13 @@ For more details how to implement and deal with C++20 modules
 see
 
 >  C++20 - The Complete Guide by Nicolai M. Josuttis
+>
 >  http://cppstd20.com
 
 ## License
 
 The code is licensed under a Creative Commons Attribution 4.0 International License.
+
 http://creativecommons.org/licenses/by/4.0/
 
 
