@@ -45,32 +45,32 @@ policy for this.
 
 Given for a module ModAll (see the subdirectory testall),
 we have:
-- **mod3if.cppm**     : The module interface unit
-- **mod3ifpart.cppm** : An interface partition unit
-- **mod3part.cppm**   : An internal partition
-- **mod3impl.cpp**    : An implementation unit
+- **modall_if.cppm**     : The module interface unit
+- **modall_ifpart.cppm** : An interface partition unit
+- **modall_part.cppm**   : An internal partition
+- **modall_impl.cpp**    : An implementation unit
 
 To test this we have:
-- **mod3test.cpp**    : A traditional translation unit
+- **modall_test.cpp**    : A traditional translation unit
 
 Calling:
 
-> clmod.py /std:c++latest mod3part.cppm mod3ifpart.cppm mod3if.cppm mod3impl.cpp mod3test.cpp /Femod3.exe
+> clmod.py /std:c++latest modall_part.cppm modall_ifpart.cppm modall_if.cppm modall_impl.cpp modall_test.cpp /Femodall.exe
 
 will automatically do the right thing:
 
-> cl /std:c++latest /Femod3.exe /TP /c /internalPartition mod3part.cppm
-> cl /std:c++latest /Femod3.exe /TP /c /interface mod3ifpart.cppm
-> cl /std:c++latest /Femod3.exe /TP /c /interface mod3if.cppm
-> cl /std:c++latest /Femod3.exe /TP /c mod3impl.cpp
-> cl /std:c++latest /Femod3.exe /TP /c mod3test.cpp
-> cl /std:c++latest /Femod3.exe mod3part.obj mod3ifpart.obj mod3if.obj mod3impl.obj mod3test.obj
+> cl /std:c++latest /Femodall.exe /TP /c /internalPartition modall_part.cppm
+> cl /std:c++latest /Femodall.exe /TP /c /interface modall_ifpart.cppm
+> cl /std:c++latest /Femodall.exe /TP /c /interface modall_if.cppm
+> cl /std:c++latest /Femodall.exe /TP /c modall_impl.cpp
+> cl /std:c++latest /Femodall.exe /TP /c modall_test.cpp
+> cl /std:c++latest /Femodall.exe modall_part.obj modall_ifpart.obj modall_if.obj modall_impl.obj modall_test.obj
 
 Note tat the order of the files matters because files that import modules need
 the pre-compiled module code (which is compiler-specific).
 Yes, circular imports are not possible.
 
-Passing `/Femod3.exe` to the compile command is not necessary but also doesn't
+Passing `/Femodall.exe` to the compile command is not necessary but also doesn't
 hurt.
 In general, the script passes all options to both the compile and the link command.
 Except a `/c` (compile only), which is handled by the script to not start the linker.
