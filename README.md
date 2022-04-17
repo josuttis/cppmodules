@@ -1,3 +1,9 @@
+# clmod.py
+
+A script to let Visual C++ deal easily with C++20 programs using modules.
+
+## Why?
+
 C++20 introduced modules.
 Unfortunately it is still not possible to write C++ programs using modules that are portable
 without significant effort.
