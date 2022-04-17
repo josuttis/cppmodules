@@ -16,26 +16,26 @@ In fact, Visual C++ does
 - not allow to request a compilation of different module files with ONE command
 - does neither document the requested file suffixes nor the necessary command-line options
 
-here is what Visual C++ needs:
-- Interface files (module interface or interface partition)
-  need suffix .ixx or the option /interface
-- Internal partitions need the option /internalPartition
+Here is what Visual C++ needs in detila for module files:
+- **Interface files** (module interface or interface partition)
+  need suffix `.ixx` or the option `/interface`
+- **Internal partitions** need the option `/internalPartition`
   (the suffix doesn't matter; they recommend the usual suffix such as .cpp).
-- Module implementation units need no specific module treatment
+- **Module implementation units** need no specific module treatment
   (use the usual suffix with no special option)
-- Options /interface and /internalPartition may not be used together
+- Options `/interface` and `/internalPartition` may not be used together
 
 This is a significant restriction because other compilers do neither need
 special suffixes nor special options but also do not know what to do with the
-.ixx suffix Microsoft recommends.
+`.ixx` suffix Microsoft recommends.
 
-To circumvent this restriction and briong the idea of portable moudle files
-into life, I have implemented a pything script that gives Visual C++ the flexibility it should have.
+To circumvent this restriction and bring the idea of portable module files
+to life, I have implemented a pythen script that gives Visual C++ the flexibility it should have.
 The attached script
- clmod.py
+> clmod.py
 is a python script that allows to
- - use arbitrary file name suffixes for module files
- - allows to pass all files with one command line
+- use arbitrary file name suffixes for module files
+- allows to pass all files with one command line
 
 This does not mean that different file suffixes may not make sense to deal
 with C++ module files. But it helps until we see an established portable
