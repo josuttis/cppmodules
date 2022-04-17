@@ -28,17 +28,17 @@ all:: lang
 	@echo "=== $*.obj done"
 	@echo ""
 
-modall.win: modall_part.cppm modall_ifpart.cppm modall_if.cppm modall_impl.cpp modall_test.cpp
+modsimple.win: modsimple_if.cppm modsimple_test.cpp
 	@echo ""
 	@echo "=== COMPILE & LINK:"
-	../clmod.py $(CXXFLAGSWINL) modall_part.cppm modall_ifpart.cppm modall_if.cppm modall_impl.cpp modall_test.cpp $(LDFLAGSWIN) /Femodall.exe
+	../clmod.py $(CXXFLAGSWINL) modsimple_if.cppm modsimple_test.cpp $(LDFLAGSWIN) /Femodsimple.exe
 	rm -f *.obj *.ifc
-	@echo "- OK:  modall.exe done"
+	@echo "- OK:  modsimple.exe done"
 
-modall.gcc: modall_part.cppm modall_ifpart.cppm modall_if.cppm modall_impl.cpp modall_test.cpp
+modsimple.gcc: modsimple_if.cppm modsimple_test.cpp
 	@echo ""
 	@echo "=== COMPILE & LINK:"
-	$(CXX20) $(CXXFLAGS20) -xc++ modall_part.cppm -xc++ modall_ifpart.cppm -xc++ modall_if.cppm modall_impl.cpp modall_test.cpp $(LDFLAGS20) -o modall.exe
+	$(CXX20) $(CXXFLAGS20) -xc++ modsimple_if.cppm modsimple_test.cpp $(LDFLAGS20) -o modsimple.exe
 	rm -rf *.o gcm.cache
-	@echo "- OK:  modall.exe done"
+	@echo "- OK:  modsimple.exe done"
 
