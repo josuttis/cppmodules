@@ -30,27 +30,28 @@ special suffixes nor special options but also do not know what to do with the
 `.ixx` suffix Microsoft recommends.
 
 To circumvent this restriction and bring the idea of portable module files
-to life, I have implemented a pythen script that gives Visual C++ the flexibility it should have.
+to life, I have implemented a Python script that gives Visual C++ the flexibility it should have.
+
 The attached script
  **clmod.py**
-is a python script that allows to
+is a Python script that allows to
 - use arbitrary file name suffixes for module files
 - allows to pass all files with one command line
 
 This does not mean that different file suffixes may not make sense to deal
 with C++ module files. But it helps until we see an established portable
-policy for this.
+supported policy for them.
 
 ## For example
 
-Given for a module ModAll (see the subdirectory testall),
+Assume for a module ModAll (see the subdirectory testall),
 we have:
 - **modall_if.cppm**     : The module interface unit
 - **modall_ifpart.cppm** : An interface partition unit
 - **modall_part.cppm**   : An internal partition
 - **modall_impl.cpp**    : An implementation unit
 
-To test this we have:
+and to test this we have:
 - **modall_test.cpp**    : A traditional translation unit
 
 Calling:
@@ -66,17 +67,15 @@ will automatically do the right thing:
     cl /std:c++latest /Femodall.exe /TP /c modall_test.cpp
     cl /std:c++latest /Femodall.exe modall_part.obj modall_ifpart.obj modall_if.obj modall_impl.obj modall_test.obj
 
-Note tat the order of the files matters, because files that import modules need
-the pre-compiled module code (which is compiler-specific).
-Yes, circular imports are not possible.
+Note that the order of the files matters; the script will not sort that out for you.
+(Files that import modules need the pre-compiled module code, which is compiler-specific, and circular imports are not possible).
 
-Passing `/Femodall.exe` to the compile command is not necessary but also doesn't
-hurt.
-In general, the script passes all options to both the compile and the link command.
-Except a `/c` (compile only), which is handled by the script to not start the linker.
+As you can see, the script passes all options to both the compile and the link command (passing link options such as `/Femodall.exe` to the compile command is not necessary but also doesn't hurt).
+That might not work with all options.
+`/c` (compile only) is handled by the script to not start the linker.
 
-Probably not all options work correctly, but for a first test it works fine.
-I would hope that the support this script provides is soon directly provided by Visual C++.
+For simple tests with C++20 modules the script should works fine.
+Let us hope that Microsoft soon adds corresponding flexibility to deal with module files themselves.
 
 I have opened bug reports for that:
 - https://developercommunity.visualstudio.com/t/Using-modules-I-cant-compile-all-C-fi/10015356
@@ -92,6 +91,11 @@ I have provided the following subdirectories to test the script:
 - **testall**: a full module example using for all module units the extension `.cppm`
 - **testallixx**: a full module example using Visual C++ conventions (`.ixx` for interface files)
 - **testallcpp**: a full module example using `.cpp` for all files (as gcc supports)
+
+## Feedback
+
+I am happy about any constructive feedback.
+Please use the feedback address of my C++20 book: http://cppstd20.com/feedback
 
 ## More
 
