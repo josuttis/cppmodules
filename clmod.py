@@ -190,7 +190,6 @@ for filename in files:
     p = run(["cl"] + flags + ["/TP", "/c", filename])
   else:
     p = run(["cl"] + flags + ["/TP", "/c", fileopt, filename])
-  #p.wait()
   if p.returncode != 0:
     print("*** ERROR: compiling", filename, "failed")
     sys.exit(1)
