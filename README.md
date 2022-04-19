@@ -79,9 +79,12 @@ Let us hope that Microsoft soon adds corresponding flexibility to deal with modu
 
 I have opened bug reports for that:
 - https://developercommunity.visualstudio.com/t/Using-modules-I-cant-compile-all-C-fi/10015356
+  (this bug was officially rejected) 
 - https://developercommunity.visualstudio.com/t/Csource-files-should-be-able-to-have-t/10013381
 
-Feel free to vote them up.
+And if you like this way to deal with C++ examples using modules, please open a bur report yourself.
+I have an inofficial feedback that they will provide it once they see the demand. So far they do not see it.
+
 
 
 ## Tests
