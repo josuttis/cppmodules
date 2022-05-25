@@ -38,22 +38,50 @@ def getModulesType(filename):
   if not os.path.isfile(filename):
       print ("*** ERROR: '" + filename + "' doesn't exist")
       sys.exit(1)
+
   inGlobalModuleFragment = False
+  inComment = False
+
   with open(filename, 'r') as f:
     for rawline in f:
       line = rawline.strip()
-      # ignore comment
-      # TODO: deal with /* ... */
+
+      # am I inside /* ... */ comment?
+      if inComment:
+        idxClose = line.find("*/")
+        if idxClose >= 0:
+          line = line[idxClose+2:]
+          inComment = False
+        else:
+          continue
+
+      # ignore // comment
       idx = line.find("//")
       if idx >= 0:
         line = line[:idx]
+
+      # ignore /* ... */ comment
+      idxOpen = line.find("/*")
+      while idxOpen >= 0:
+        idxClose = line.find("*/")
+
+        if idxClose >= 0:
+          line = line[:idxOpen] + line[idxClose+2:]
+        else:
+          line = line[:idxOpen]
+          inComment = True
+          break
+
+        idxOpen = line.find("/*")
+
       # ignore empty line:
-      if line == "":
+      if not line:
         continue
-      
+
       if line.startswith("module;"):
         inGlobalModuleFragment = True
         continue
+
       # preprocessor commands in global module fragment ignored:
       if inGlobalModuleFragment and line.startswith("#"):
         continue
@@ -138,7 +166,7 @@ def run(args):
   #        p = subprocess.run(args)
   p = subprocess.Popen(args)
   p.wait()
-  return p;
+  return p
 
 
 ##############################################################################
