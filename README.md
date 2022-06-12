@@ -42,6 +42,8 @@ This does not mean that different file suffixes may not make sense to deal
 with C++ module files. But it helps until we see an established portable
 supported policy for them.
 
+> **Note:** The `clmod.py` presumes availability of cl.exe on the path. In order to satisfy this prerequisite, you can run it from *Developer PowerShell*. The tool can be launched by choosing *View / Terminal* in Visual Studio.
+
 ## For example
 
 Assume for a module ModAll (see the subdirectory testall),
@@ -67,14 +69,13 @@ will automatically do the right thing:
     cl /std:c++latest /Femodall.exe /TP /c modall_test.cpp
     cl /std:c++latest /Femodall.exe modall_part.obj modall_ifpart.obj modall_if.obj modall_impl.obj modall_test.obj
 
-Note that the order of the files matters; the script will not sort that out for you.
-(Files that import modules need the pre-compiled module code, which is compiler-specific, and circular imports are not possible).
+> **Note:** the order of the files matters; the script will not sort that out for you. Files that import modules need the pre-compiled module code, which is compiler-specific, and circular imports are not possible.
 
 As you can see, the script passes all options to both the compile and the link command (passing link options such as `/Femodall.exe` to the compile command is not necessary but also doesn't hurt).
 That might not work with all options.
 `/c` (compile only) is handled by the script to not start the linker.
 
-For simple tests with C++20 modules the script should works fine.
+For simple tests with C++20 modules the script should work fine.
 Let us hope that Microsoft soon adds corresponding flexibility to deal with module files themselves.
 
 I have opened bug reports for that:
@@ -82,10 +83,11 @@ I have opened bug reports for that:
   (this bug was officially rejected) 
 - https://developercommunity.visualstudio.com/t/Csource-files-should-be-able-to-have-t/10013381
 
-And if you like this way to deal with C++ examples using modules, please open a bur report yourself.
-I have an inofficial feedback that they will provide it once they see the demand. So far they do not see it.
+And if you like this way to deal with C++ examples using modules, please open a bug report yourself.
+I have an unofficial feedback that they will provide it once they see the demand. So far they do not see it.
 
-
+When using the script, you may be affected by the following bug as well:
+- https://developercommunity2.visualstudio.com/t/C-modules-compilation:-error-C3474-co/1130956
 
 ## Tests
 
