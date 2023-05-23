@@ -19,10 +19,10 @@ export class Square {
  private:
    int value;
  public:
-   Square(int i) 
+   Square(int i)
     : value{square(i)} {
    }
-   int getValue() const {
+   [[nodiscard]] int getValue() const {
      return value;
    }
 };

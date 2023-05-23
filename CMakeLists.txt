@@ -29,7 +29,7 @@ project_options(
   #XXX ENABLE_SANITIZER_UNDEFINED_BEHAVIOR
   #XXX ENABLE_SANITIZER_THREAD
   #XXX ENABLE_SANITIZER_MEMORY
-  #TODO: WARNINGS_AS_ERRORS
+  WARNINGS_AS_ERRORS
 )
 # cmake-format: on
 
@@ -69,5 +69,6 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 
 endif()
 
+add_subdirectory(testsimple)
 add_subdirectory(testall)
 
